@@ -3,7 +3,7 @@ import Layout from "@/app/layout/root-layout";
 import { NativeBaseProvider } from "native-base";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { theme } from "./app/theme";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import * as Font from "expo-font";
 import * as Network from "expo-network";
@@ -20,7 +20,9 @@ export default function App() {
         console.warn(e);
       }
     }
-    prepare();
+    prepare().finally(() => {
+      setAppIsReady(true);
+    });
   }, []);
 
   const isConnected = useMemo(async () => {
@@ -35,7 +37,7 @@ export default function App() {
   }
 
   if (!appIsReady) {
-    return <SplashScreen setAppIsReady={setAppIsReady} />;
+    return null;
   }
 
   return (

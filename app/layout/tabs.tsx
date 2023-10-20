@@ -13,6 +13,7 @@ import { Box, Text, VStack } from "native-base";
 import TabHeader from "../components/TabHeader";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import React from "react";
+import DepositHeader from "../components/deposit-header";
 
 const Tabs = createBottomTabNavigator();
 
@@ -102,6 +103,7 @@ const TabButton = ({
 };
 
 export default function TabNavigator({ ...props }: any) {
+  const tabProps = props;
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -109,9 +111,6 @@ export default function TabNavigator({ ...props }: any) {
           backgroundColor: theme.colors.primary[800],
           alignItems: "center",
           height: 60,
-        },
-        header: () => {
-          return <TabHeader {...props} />;
         },
       })}
       initialRouteName="home"
@@ -125,6 +124,12 @@ export default function TabNavigator({ ...props }: any) {
             options={{
               tabBarButton(props) {
                 return <TabButton item={item} props={props} />;
+              },
+              header(props) {
+                if (props.route.name === "deposit") {
+                  return <DepositHeader {...props} />;
+                }
+                return <TabHeader {...tabProps} />;
               },
             }}
           />

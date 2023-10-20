@@ -10,6 +10,10 @@
     "ios": {
       "supportsTablet": true
     },
+    "splash": {
+      "image": "./assets/splashscreen.jpg",
+      "resizeMode": "cover"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
