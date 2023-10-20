@@ -33,7 +33,11 @@ const TabHeader = ({ navigation }: { navigation: any }) => {
 
         <Heading color={theme.colors.white}>কর্ম ভাই</Heading>
 
-        <TouchableOpacity onPress={() => navigation.getParent().openDrawer()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.getParent().openDrawer();
+          }}
+        >
           <Image
             style={{
               width: 20,

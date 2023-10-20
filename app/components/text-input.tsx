@@ -6,6 +6,7 @@ import {
   ViewStyle,
   TouchableOpacity,
   Dimensions,
+  TextStyle,
 } from "react-native";
 import { Box, Popover, Text, Tooltip } from "native-base";
 import React, {
@@ -28,6 +29,7 @@ interface ITextInputProps extends TextInputProps, UseControllerProps {
   containerStyle?: ViewStyle;
   InputLeftElement?: ReactNode;
   InputRightElemnt?: ReactNode;
+  labelStyle?: TextStyle;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({ ...props }) => {
@@ -56,11 +58,24 @@ const ControlledInput = ({
 
   const { field, fieldState } = useController({ name, rules, defaultValue });
 
-  const initalFocusRef = useRef(null);
-
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && (
+        <Text
+          style={[
+            {
+              color: theme.colors.primary[900],
+              fontSize: 20,
+              lineHeight: 28,
+              textAlign: "center",
+              marginVertical: 8,
+            },
+            props.labelStyle,
+          ]}
+        >
+          {label}
+        </Text>
+      )}
       <View style={[{ ...containerStyle }, styles.inputContainer]}>
         {InputLeftElement && InputLeftElement}
         <RnTextInput
@@ -92,11 +107,6 @@ const ControlledInput = ({
 export default TextInput;
 
 const styles = StyleSheet.create({
-  label: {
-    color: "white",
-    margin: 20,
-    marginLeft: 0,
-  },
   container: {
     flex: -1,
     justifyContent: "center",
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
     color: theme.colors.darkText,
   },
   inputContainer: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: theme.colors.primary[900],
     borderStyle: "solid",
     flexDirection: "row",

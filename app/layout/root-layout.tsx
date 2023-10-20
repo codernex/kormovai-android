@@ -6,6 +6,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import LeftDrawerContent from "../components/LeftDrawerContent";
 import Profile from "../screens/user/profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import RightDrawerContent from "../components/RightDrawerContent";
 
 const Drawer = createDrawerNavigator();
 
@@ -65,6 +66,7 @@ const RightDrawerScreen = () => {
         drawerPosition: "right",
         headerShown: false,
       }}
+      drawerContent={(props) => <RightDrawerContent {...props} />}
     >
       {authState.isAuth ? (
         <RightDrawer.Screen name="HomeDrawer" children={LeftDrawerScreen} />
