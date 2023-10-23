@@ -4,30 +4,39 @@ import { NativeBaseProvider } from "native-base";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { theme } from "./app/theme";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Entypo from "@expo/vector-icons/Entypo";
 import * as Font from "expo-font";
 import * as Network from "expo-network";
 import { Text, View } from "react-native";
-import SplashScreen from "./app/components/splashcreen";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [fontsLoaded] = Font.useFonts({
+    DestinyMJ: require("@/assets/fonts/DestinyMJ.ttf"),
+    LiAdoreExtraLight: require("@/assets/fonts/li-adore/extralight.ttf"),
+    LiAdoreLight: require("@/assets/fonts/li-adore/light.ttf"),
+    LiAdoreLightItalic: require("@/assets/fonts/li-adore/light-italic.ttf"),
+    LiAdoreRegular: require("@/assets/fonts/li-adore/regular.ttf"),
+    LiAdoreSemiBold: require("@/assets/fonts/li-adore/semibold.ttf"),
+    LiAdoreSemiBoldItalic: require("@/assets/fonts/li-adore/semibold-italic.ttf"),
+    LiAdoreBold: require("@/assets/fonts/li-adore/bold.ttf"),
+    LiAdoreBoldItalic: require("@/assets/fonts/li-adore/bold-italic.ttf"),
+  });
+
   useEffect(() => {
-    async function prepare() {
-      try {
-        // Pre-load fonts, make any API calls you need to do here
-        await Font.loadAsync(Entypo.font);
-      } catch (e) {
-        console.warn(e);
+    const prepare = async () => {
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
       }
-    }
-    prepare().finally(() => {
-      setAppIsReady(true);
-    });
-  }, []);
+    };
+    prepare();
+  }, [fontsLoaded]);
 
   const isConnected = useMemo(async () => {
     return (await Network.getNetworkStateAsync()).isConnected;
   }, []);
+
   if (!isConnected) {
     return (
       <View>
@@ -36,7 +45,7 @@ export default function App() {
     );
   }
 
-  if (!appIsReady) {
+  if (!fontsLoaded) {
     return null;
   }
 

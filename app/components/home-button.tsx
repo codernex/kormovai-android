@@ -2,18 +2,15 @@ import { TouchableOpacity, StyleProp, TextStyle } from "react-native";
 import React from "react";
 import { theme } from "../theme";
 import { Box, Text } from "native-base";
-import {
-  ITextProps,
-  InterfaceTextProps,
-} from "native-base/lib/typescript/components/primitives/Text/types";
 interface HomeButtonProps {
   Icon: ({ style }: { style?: StyleProp<TextStyle> }) => React.JSX.Element;
   Text: ({ style }: { style?: StyleProp<TextStyle> }) => React.JSX.Element;
   onPress?: () => void;
 }
-const HomeButton: React.FC<HomeButtonProps> = ({ Icon, Text }) => {
+const HomeButton: React.FC<HomeButtonProps> = ({ Icon, Text, onPress }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={{
         flexDirection: "row",
         padding: 10,
@@ -61,6 +58,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ Icon, Text }) => {
           color: "#565858",
           fontSize: 18,
           lineHeight: 30,
+          fontFamily: "LiAdoreRegular",
         }}
       />
     </TouchableOpacity>

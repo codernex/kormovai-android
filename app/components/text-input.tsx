@@ -4,17 +4,10 @@ import {
   TextInputProps,
   StyleSheet,
   ViewStyle,
-  TouchableOpacity,
-  Dimensions,
   TextStyle,
 } from "react-native";
-import { Box, Popover, Text, Tooltip } from "native-base";
-import React, {
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-  useRef,
-} from "react";
+import { Text } from "native-base";
+import React, { ReactNode } from "react";
 import {
   useController,
   useFormContext,

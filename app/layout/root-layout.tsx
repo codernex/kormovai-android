@@ -7,8 +7,11 @@ import LeftDrawerContent from "../components/LeftDrawerContent";
 import Profile from "../screens/user/profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RightDrawerContent from "../components/RightDrawerContent";
-
-const Drawer = createDrawerNavigator();
+import Header from "../components/header";
+import Work from "../screens/work";
+import Support from "../screens/support";
+import Refer from "../screens/refer";
+import PaymentHistory from "../screens/payments/payment-history";
 
 export default function Layout() {
   return (
@@ -37,8 +40,40 @@ const RootLayoutStack = () => {
       />
       <RootStack.Screen
         name="profile"
-        options={{ presentation: "modal" }}
+        options={{
+          presentation: "modal",
+          header: (props) => <Header title="প্রোফাইল" {...props} />,
+        }}
         component={Profile}
+      />
+      <RootStack.Screen
+        name="work"
+        component={Work}
+        options={{
+          header: (props) => <Header title="কাজ করুন" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="support"
+        component={Support}
+        options={{
+          header: (props) => <Header title="সাপোর্ট" {...props} />,
+        }}
+      />
+
+      <RootStack.Screen
+        name="refer"
+        component={Refer}
+        options={{
+          header: (props) => <Header title="রেফার" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="payment-history"
+        component={PaymentHistory}
+        options={{
+          header: (props) => <Header title="লেনদেন" {...props} />,
+        }}
       />
     </RootStack.Navigator>
   );

@@ -7,13 +7,12 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Deposit from "../screens/deposit";
 import Payment from "../screens/payment";
 import { theme } from "../theme";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Image } from "expo-image";
-import { Box, Text, VStack } from "native-base";
+import { StyleSheet, TouchableOpacity, Keyboard } from "react-native";
+import { Box, Text, VStack, View } from "native-base";
 import TabHeader from "../components/TabHeader";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import React from "react";
-import DepositHeader from "../components/deposit-header";
+import React, { useEffect, useState } from "react";
+import Header from "../components/header";
 
 const Tabs = createBottomTabNavigator();
 
@@ -45,65 +44,78 @@ const tabArr: ITabArr[] = [
   },
 ];
 
-const TabButton = ({
-  props,
-  item,
-}: {
-  props: BottomTabBarButtonProps;
-  item: ITabArr;
-}) => {
-  const { accessibilityState } = props;
+const TabButton = React.memo(
+  ({ props, item }: { props: BottomTabBarButtonProps; item: ITabArr }) => {
+    const { accessibilityState } = props;
 
-  const animateStyles = useAnimatedStyle(() => {
-    return {
-      scaleX: accessibilityState?.selected ? 1.2 : 1,
-      scaleY: accessibilityState?.selected ? 1.2 : 1,
-      top: accessibilityState?.selected ? -20 : 0,
-    };
-  }, [accessibilityState?.selected]);
+    const [showTabs, setShowTabs] = useState(true);
 
-  const focusedIcon = useAnimatedStyle(() => {
-    if (accessibilityState?.selected) {
-      return {
-        borderRadius: 25,
-        backgroundColor: theme.colors.primary[800],
-        width: 50,
-        height: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        borderColor: theme.colors.white,
-        borderWidth: 4,
+    useEffect(() => {
+      const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+        setShowTabs(false);
+      });
+
+      const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+        setShowTabs(true);
+      });
+
+      return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
       };
-    } else {
+    }, []);
+    const animateStyles = useAnimatedStyle(() => {
       return {
-        borderRadius: 0,
-        backgroundColor: theme.colors.primary[800],
-        width: "auto",
-        height: "auto",
-        borderColor: "",
-        borderWidth: 0,
+        scaleX: accessibilityState?.selected && showTabs ? 1.2 : 1,
+        scaleY: accessibilityState?.selected && showTabs ? 1.2 : 1,
+        top: accessibilityState?.selected && showTabs ? -20 : 0,
       };
-    }
-  }, [accessibilityState?.selected]);
+    }, [accessibilityState?.selected, showTabs]);
 
-  return (
-    <TouchableOpacity style={styles.tabButton} onPress={props.onPress}>
-      <Animated.View style={[styles.tabButton, animateStyles]}>
-        <Animated.View style={[styles.icon, focusedIcon]}>
-          <MaterialCommunityIcons
-            name={item.icon}
-            size={24}
-            color={theme.colors.white}
-          />
+    const focusedIcon = useAnimatedStyle(() => {
+      if (accessibilityState?.selected && showTabs) {
+        return {
+          borderRadius: 25,
+          backgroundColor: theme.colors.primary[800],
+          width: 50,
+          height: 50,
+          justifyContent: "center",
+          alignItems: "center",
+          borderColor: theme.colors.white,
+          borderWidth: 4,
+        };
+      } else {
+        return {
+          borderRadius: 0,
+          backgroundColor: theme.colors.primary[800],
+          width: "auto",
+          height: "auto",
+          borderColor: "",
+          borderWidth: 0,
+        };
+      }
+    }, [accessibilityState?.selected, showTabs]);
+
+    return (
+      <TouchableOpacity style={styles.tabButton} onPress={props.onPress}>
+        <Animated.View style={[styles.tabButton, animateStyles]}>
+          <Animated.View style={[styles.icon, focusedIcon]}>
+            <MaterialCommunityIcons
+              name={item.icon}
+              size={24}
+              color={theme.colors.white}
+            />
+          </Animated.View>
+          <Text color={theme.colors.white}>{item.title}</Text>
         </Animated.View>
-        <Text color={theme.colors.white}>{item.title}</Text>
-      </Animated.View>
-    </TouchableOpacity>
-  );
-};
+      </TouchableOpacity>
+    );
+  }
+);
 
 export default function TabNavigator({ ...props }: any) {
   const tabProps = props;
+
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -112,6 +124,7 @@ export default function TabNavigator({ ...props }: any) {
           alignItems: "center",
           height: 60,
         },
+        tabBarHideOnKeyboard: true,
       })}
       initialRouteName="home"
     >
@@ -127,7 +140,7 @@ export default function TabNavigator({ ...props }: any) {
               },
               header(props) {
                 if (props.route.name === "deposit") {
-                  return <DepositHeader {...props} />;
+                  return <Header title="টাকা এড" {...props} />;
                 }
                 return <TabHeader {...tabProps} />;
               },

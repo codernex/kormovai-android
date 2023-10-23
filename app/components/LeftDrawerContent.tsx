@@ -36,8 +36,15 @@ const LeftDrawerContent = ({ ...props }: DrawerContentComponentProps) => {
               }}
             />
             <VStack>
-              <Heading color={theme.colors.white}>My Account</Heading>
-              <Text color={theme.colors.gray[500]}>Account Details</Text>
+              <Heading fontFamily={"mono"} color={theme.colors.white}>
+                My Account
+              </Heading>
+              <Text
+                style={{ fontFamily: "LiAdoreRegular" }}
+                color={theme.colors.gray[500]}
+              >
+                Account Details
+              </Text>
             </VStack>
           </HStack>
           <Box

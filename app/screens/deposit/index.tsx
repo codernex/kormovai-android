@@ -4,22 +4,26 @@ import { theme } from "@/app/theme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Image } from "expo-image";
 import { Box, Container, HStack, Text, VStack } from "native-base";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Dimensions, SafeAreaView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { z } from "zod";
 
 const depositSchema = z.object({
-  amount: z.number().min(1),
+  amount: z.string().min(1),
 });
 
-export default function Deposit() {
+export default function Deposit({ navigation }: any) {
   const form = useForm<z.infer<typeof depositSchema>>({
     defaultValues: {
-      amount: 0,
+      amount: "",
     },
     resolver: zodResolver(depositSchema),
   });
+
+  const deposit: SubmitHandler<z.infer<typeof depositSchema>> = async ({
+    amount,
+  }) => {};
   return (
     <SafeAreaView>
       <Box
@@ -112,8 +116,14 @@ export default function Deposit() {
               label="টাকার পরিমাণ "
               keyboardType="numeric"
             />
-            <TouchableOpacity style={styles.button}>
-              <Text>পরবর্তী</Text>
+            <Spacer size={15} />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={form.handleSubmit(deposit)}
+            >
+              <Text fontSize={18} color={theme.colors.white}>
+                পরবর্তী
+              </Text>
             </TouchableOpacity>
           </FormProvider>
         </Container>
@@ -125,5 +135,8 @@ export default function Deposit() {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: theme.colors.primary[900],
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 5,
   },
 });

@@ -14,7 +14,6 @@ import {
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
-  AntDesign,
   Fontisto,
 } from "@expo/vector-icons";
 import { theme } from "../theme";
@@ -22,7 +21,7 @@ import HomeButton from "../components/home-button";
 import HomeButtonTwo from "../components/home-button-2";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Home = () => {
+const Home = ({ navigation }: any) => {
   return (
     <View>
       <Image
@@ -89,7 +88,7 @@ const Home = () => {
                 }}
               />
             </HStack>
-            <Text bold marginLeft={2}>
+            <Text fontWeight={600} fontSize={15} marginLeft={2}>
               জুয়েল হোসেন
             </Text>
             <HStack style={{ flex: 1, justifyContent: "flex-end" }}>
@@ -142,11 +141,8 @@ const Home = () => {
                 }}
               >
                 <Ionicons
-                  style={{
-                    backgroundColor: theme.colors.primary[800],
-                  }}
                   size={18}
-                  name="checkmark"
+                  name="checkmark-outline"
                   color={theme.colors.white}
                 />
               </View>
@@ -176,9 +172,9 @@ const Home = () => {
           textAlign={"center"}
           borderRightColor={theme.colors.primary[900]}
           borderRightWidth={2}
-          fontSize={15}
+          fontSize={13}
           underline
-          fontWeight={"medium"}
+          fontFamily={"LiAdoreSemiBold"}
         >
           আপনার প্রয়োজনীয় সেবা সিলেক্ট করুন
         </Text>
@@ -187,6 +183,7 @@ const Home = () => {
             Icon={({ style }) => (
               <Ionicons name="briefcase-outline" style={style} />
             )}
+            onPress={() => navigation.navigate("work")}
             Text={({ style }) => <Text style={style}>কাজ</Text>}
           />
           <HomeButton
@@ -270,6 +267,7 @@ const Home = () => {
             marginBottom: 40,
             borderRadius: 10,
           }}
+          onPress={() => navigation.navigate("payment-history")}
         >
           <Text fontSize={20} color={theme.colors.customGray[300]}>
             পেমেন্ট হিস্টোরি
@@ -300,6 +298,7 @@ const Home = () => {
             Icon={({ style }) => (
               <MaterialIcons name="support-agent" style={style} />
             )}
+            onPress={() => navigation.navigate("support")}
             Text={({ style }) => <Text style={style}>সাপোর্ট</Text>}
           />
         </HStack>
