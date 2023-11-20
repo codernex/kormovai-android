@@ -1,17 +1,29 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useAuth } from "../context/auth";
-import Login from "../screens/auth/login";
 import TabNavigator from "./tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import LeftDrawerContent from "../components/LeftDrawerContent";
-import Profile from "../screens/user/profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import RightDrawerContent from "../components/RightDrawerContent";
-import Header from "../components/header";
-import Work from "../screens/work";
-import Support from "../screens/support";
-import Refer from "../screens/refer";
-import PaymentHistory from "../screens/payments/payment-history";
+import {
+  Header,
+  RightDrawerContent,
+  LeftDrawerContent,
+} from "@/app/components";
+import {
+  EarningHistory,
+  Work,
+  Media,
+  Packages,
+  SignUp,
+  FundTransfer,
+  PaymentHistory,
+  Refer,
+  Support,
+  Login,
+  Profile,
+  FreePackage,
+  PackageTwo,
+  PackageThree,
+} from "../screens";
 
 export default function Layout() {
   return (
@@ -75,6 +87,55 @@ const RootLayoutStack = () => {
           header: (props) => <Header title="লেনদেন" {...props} />,
         }}
       />
+      <RootStack.Screen
+        name="fund-transfer"
+        component={FundTransfer}
+        options={{
+          header: (props) => <Header title="ফান্ড ট্রান্সফার" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="packages"
+        component={Packages}
+        options={{
+          header: (props) => <Header title="প্যাকেজ " {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="earning-history"
+        component={EarningHistory}
+        options={{
+          header: (props) => <Header title="ইনকাম হিস্টোরি" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="media"
+        component={Media}
+        options={{
+          header: (props) => <Header title="মিডিয়া" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="free-package"
+        component={FreePackage}
+        options={{
+          header: (props) => <Header title="ফিরে যান" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="package-two"
+        component={PackageTwo}
+        options={{
+          header: (props) => <Header title="ফিরে যান" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="package-three"
+        component={PackageThree}
+        options={{
+          header: (props) => <Header title="ফিরে যান" {...props} />,
+        }}
+      />
     </RootStack.Navigator>
   );
 };
@@ -106,7 +167,10 @@ const RightDrawerScreen = () => {
       {authState.isAuth ? (
         <RightDrawer.Screen name="HomeDrawer" children={LeftDrawerScreen} />
       ) : (
-        <RightDrawer.Screen name="login" component={Login} />
+        <RightDrawer.Group>
+          <RightDrawer.Screen name="login" component={Login} />
+          <RightDrawer.Screen name="signup" component={SignUp} />
+        </RightDrawer.Group>
       )}
     </RightDrawer.Navigator>
   );

@@ -1,6 +1,6 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
-import { Image, ImageBackground } from "expo-image";
+import React from "react";
+import { Image } from "expo-image";
 import { Box, HStack, ScrollView, Text, VStack, View } from "native-base";
 import {
   FontAwesome,

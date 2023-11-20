@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { Box, HStack, ScrollView, VStack } from "native-base";
 import { theme } from "@/app/theme";
 import { Ionicons } from "@expo/vector-icons";
-import Spacer from "@/app/components/spacer";
+import { Spacer } from "@/app/components";
 
 const works: {
   name: string;

@@ -77,7 +77,7 @@ const Login = () => {
               placeholder="মোবাইল নম্বর"
               containerStyle={{
                 borderRadius: 14,
-                backgroundColor: themes.colors.gray[500],
+                backgroundColor: themes.colors.gray[100],
               }}
               InputLeftElement={
                 <Ionicons name="call" size={20} color={"#1ba5b3"} />
@@ -92,7 +92,7 @@ const Login = () => {
               rules={{ required: true }}
               containerStyle={{
                 borderRadius: 14,
-                backgroundColor: themes.colors.gray[500],
+                backgroundColor: themes.colors.gray[100],
                 paddingLeft: 0,
               }}
               InputLeftElement={
@@ -115,7 +115,7 @@ const Login = () => {
               placeholderTextColor={themes.colors.gray[900]}
               containerStyle={{
                 borderRadius: 14,
-                backgroundColor: themes.colors.gray[500],
+                backgroundColor: themes.colors.gray[100],
                 paddingLeft: 0,
               }}
               InputLeftElement={
@@ -199,7 +199,7 @@ const Login = () => {
                   fontSize: 16,
                   paddingHorizontal: 5,
                 }}
-                to={"/"}
+                to={"/signup"}
               >
                 {" অ্যাকাউন্ট "}
               </Link>

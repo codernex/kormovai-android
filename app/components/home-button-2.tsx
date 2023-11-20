@@ -7,7 +7,7 @@ interface HomeButtonProps {
   Text: ({ style }: { style?: StyleProp<TextStyle> }) => React.JSX.Element;
   onPress?: () => void;
 }
-const HomeButtonTwo: React.FC<HomeButtonProps> = ({ Icon, Text }) => {
+const HomeButtonTwo: React.FC<HomeButtonProps> = ({ Icon, Text, onPress }) => {
   return (
     <TouchableOpacity
       style={{
@@ -22,6 +22,7 @@ const HomeButtonTwo: React.FC<HomeButtonProps> = ({ Icon, Text }) => {
         width: 130,
         height: 60,
       }}
+      onPress={onPress}
     >
       <Icon style={{ color: "white", fontSize: 30 }} />
       <Text

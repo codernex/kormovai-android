@@ -196,6 +196,7 @@ const Home = ({ navigation }: any) => {
 
         <HStack marginTop={6} justifyContent={"space-between"}>
           <HomeButton
+            onPress={() => navigation.navigate("packages")}
             Icon={({ style }) => <FontAwesome name="gift" style={style} />}
             Text={({ style }) => <Text style={style}>প্যাকেজ</Text>}
           />
@@ -239,6 +240,7 @@ const Home = ({ navigation }: any) => {
           />
           <HomeButtonTwo
             Icon={({ style }) => <Fontisto name="wallet" style={style} />}
+            onPress={() => navigation.navigate("fund-transfer")}
             Text={(props) => (
               <Text
                 fontSize={16}
@@ -283,6 +285,7 @@ const Home = ({ navigation }: any) => {
             Icon={({ style }) => (
               <MaterialCommunityIcons name="video-image" style={style} />
             )}
+            onPress={() => navigation.navigate("media")}
             Text={({ style }) => <Text style={style}>মিডিয়া</Text>}
           />
         </HStack>

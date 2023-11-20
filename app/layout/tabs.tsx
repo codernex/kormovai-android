@@ -2,23 +2,20 @@ import {
   BottomTabBarButtonProps,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import Home from "../screens/home";
+import { Home, Payment, Deposit } from "../screens";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import Deposit from "../screens/deposit";
-import Payment from "../screens/payment";
 import { theme } from "../theme";
 import { StyleSheet, TouchableOpacity, Keyboard } from "react-native";
-import { Box, Text, VStack, View } from "native-base";
-import TabHeader from "../components/TabHeader";
+import { Text } from "native-base";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import React, { useEffect, useState } from "react";
-import Header from "../components/header";
+import { Header, TabHeader } from "@/app/components";
 
 const Tabs = createBottomTabNavigator();
 
 interface ITabArr {
   name: string;
-  component: () => React.JSX.Element;
+  component: ({ navigation }: any) => React.JSX.Element;
   icon: (typeof Ionicons)[keyof typeof Ionicons];
   title: string;
 }
@@ -140,7 +137,7 @@ export default function TabNavigator({ ...props }: any) {
               },
               header(props) {
                 if (props.route.name === "deposit") {
-                  return <Header title="টাকা এড" {...props} />;
+                  return <Header title="টাকা এড" {...(props as any)} />;
                 }
                 return <TabHeader {...tabProps} />;
               },

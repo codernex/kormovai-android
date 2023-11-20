@@ -22,6 +22,7 @@ export default function App() {
     LiAdoreSemiBoldItalic: require("@/assets/fonts/li-adore/semibold-italic.ttf"),
     LiAdoreBold: require("@/assets/fonts/li-adore/bold.ttf"),
     LiAdoreBoldItalic: require("@/assets/fonts/li-adore/bold-italic.ttf"),
+    LiZahir: require("@/assets/fonts/zahir.ttf"),
   });
 
   useEffect(() => {
