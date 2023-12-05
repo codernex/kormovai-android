@@ -1,4 +1,4 @@
-export { default as Payment } from "./payment";
+export { default as Payment } from "./payments";
 export { default as Home } from "./home";
 export { default as Deposit } from "./deposit";
 export { default as Work } from "./work";
@@ -8,10 +8,17 @@ export { default as SignUp } from "./auth/signup";
 export { default as Packages } from "./package";
 export { default as Support } from "./support";
 export { default as Refer } from "./refer";
-export { default as PaymentHistory } from "../screens/payments/payment-history";
+export { default as PaymentHistory } from "./payments/payment-history";
 export { default as FundTransfer } from "./fund-transfer";
 export { default as Login } from "./auth/login";
 export { default as Profile } from "./user/profile";
 export { default as FreePackage } from "./package/free";
 export { default as PackageTwo } from "./package/1250";
 export { default as PackageThree } from "./package/2400";
+
+export { default as Team } from "./team";
+export { default as Bkash } from "./payments/bkash";
+export { default as Nagad } from "./payments/nagad";
+export { default as Rocket } from "./payments/rocket";
+export { default as Upay } from "./payments/upay";
+export { default as Bank } from "./payments/bank";

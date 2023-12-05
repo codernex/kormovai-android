@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import api, { apiPost } from "@/app/api";
 import SecureStore from "expo-secure-store";
 import { TOKEN_KEY, USER_KEY } from "@/constans";
@@ -37,23 +43,27 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
     user: null,
   });
 
-  useEffect(() => {
-    const loadToken = async () => {
-      const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      const JsonUser = await SecureStore.getItemAsync(USER_KEY);
-      if (token && JsonUser) {
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+  const loadToken = useCallback(async () => {
+    const token = await SecureStore.getItemAsync(TOKEN_KEY);
+    const JsonUser = await SecureStore.getItemAsync(USER_KEY);
+    if (token && JsonUser) {
+      axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-        setAuthState({
-          isAuth: true,
-          token: token,
-          user: JSON.parse(JsonUser),
-        });
-      }
-    };
-
-    loadToken();
+      setAuthState({
+        isAuth: true,
+        token: token,
+        user: JSON.parse(JsonUser),
+      });
+    }
   }, []);
+
+  // useEffect(() => {
+  //   loadToken();
+
+  //   return () => {
+  //     loadToken();
+  //   };
+  // }, []);
 
   const register = async (userId: string, password: string) => {};
 

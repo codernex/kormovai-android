@@ -225,6 +225,7 @@ const Home = ({ navigation }: any) => {
             Icon={({ style }) => (
               <MaterialCommunityIcons name="account-group" style={style} />
             )}
+            onPress={() => navigation.navigate("team")}
             Text={({ style }) => <Text style={style}>আমার টিম</Text>}
           />
           <HomeButton

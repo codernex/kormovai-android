@@ -10,7 +10,7 @@ import { Text } from "native-base";
 
 interface ICustomHeader {
   title?: string;
-  TitleComponent?: () => React.JSX.Element;
+  TitleComponent?: React.JSX.Element;
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
 }
 
@@ -35,7 +35,7 @@ const Header: React.FC<ICustomHeader> = ({ ...props }) => {
             left: 15,
             justifyContent: "center",
           }}
-          onPress={() => props.navigation.navigate("home")}
+          onPress={() => props.navigation.goBack()}
         >
           <Ionicons
             name="chevron-back"
@@ -59,7 +59,7 @@ const Header: React.FC<ICustomHeader> = ({ ...props }) => {
             {props.title}
           </Text>
         )}
-        {props.TitleComponent && <props.TitleComponent />}
+        {props.TitleComponent && props.TitleComponent}
       </ImageBackground>
     </SafeAreaView>
   );

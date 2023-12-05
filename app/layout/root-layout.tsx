@@ -23,7 +23,16 @@ import {
   FreePackage,
   PackageTwo,
   PackageThree,
+  Team,
+  Bkash,
+  Nagad,
+  Bank,
+  Upay,
+  Rocket,
 } from "../screens";
+import { HStack, Text } from "native-base";
+import { Image } from "expo-image";
+import { theme } from "../theme";
 
 export default function Layout() {
   return (
@@ -134,6 +143,124 @@ const RootLayoutStack = () => {
         component={PackageThree}
         options={{
           header: (props) => <Header title="ফিরে যান" {...props} />,
+        }}
+      />
+
+      <RootStack.Screen
+        name="team"
+        component={Team}
+        options={{
+          header: (props) => <Header title="আমার টিম" {...props} />,
+        }}
+      />
+      <RootStack.Screen
+        name="bkash"
+        component={Bkash}
+        options={{
+          header: (props) => (
+            <Header
+              TitleComponent={
+                <HStack alignItems={"center"} space={1}>
+                  <Image
+                    source={require("@/assets/brand/bkash.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <Text color={"white"} fontSize={24} fontWeight={"bold"}>
+                    বিকাশ
+                  </Text>
+                </HStack>
+              }
+              {...props}
+            />
+          ),
+        }}
+      />
+      <RootStack.Screen
+        name="nagad"
+        component={Nagad}
+        options={{
+          header: (props) => (
+            <Header
+              TitleComponent={
+                <HStack alignItems={"center"} space={1}>
+                  <Image
+                    source={require("@/assets/brand/nagad.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <Text color={"white"} fontSize={24} fontWeight={"bold"}>
+                    নগদ
+                  </Text>
+                </HStack>
+              }
+              {...props}
+            />
+          ),
+        }}
+      />
+      <RootStack.Screen
+        name="bank"
+        component={Bank}
+        options={{
+          header: (props) => (
+            <Header
+              TitleComponent={
+                <HStack alignItems={"center"} space={1}>
+                  <Image
+                    source={require("@/assets/brand/bank.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <Text color={"white"} fontSize={24} fontWeight={"bold"}>
+                    ব্যাংক
+                  </Text>
+                </HStack>
+              }
+              {...props}
+            />
+          ),
+        }}
+      />
+      <RootStack.Screen
+        name="upay"
+        component={Upay}
+        options={{
+          header: (props) => (
+            <Header
+              TitleComponent={
+                <HStack alignItems={"center"} space={1}>
+                  <Image
+                    source={require("@/assets/brand/bkash.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <Text color={"white"} fontSize={24} fontWeight={"bold"}>
+                    উপায়
+                  </Text>
+                </HStack>
+              }
+              {...props}
+            />
+          ),
+        }}
+      />
+      <RootStack.Screen
+        name="rocket"
+        component={Rocket}
+        options={{
+          header: (props) => (
+            <Header
+              TitleComponent={
+                <HStack alignItems={"center"} space={1}>
+                  <Image
+                    source={require("@/assets/brand/rocket.png")}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <Text color={"white"} fontSize={24} fontWeight={"bold"}>
+                    রকেট
+                  </Text>
+                </HStack>
+              }
+              {...props}
+            />
+          ),
         }}
       />
     </RootStack.Navigator>

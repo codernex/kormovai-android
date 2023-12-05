@@ -3,11 +3,12 @@ import Layout from "@/app/layout/root-layout";
 import { NativeBaseProvider } from "native-base";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { theme } from "./app/theme";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import * as Font from "expo-font";
 import * as Network from "expo-network";
-import { Text, View } from "react-native";
+import { LogBox, Text, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
+import DBProvider from "./app/context/db";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,12 +27,19 @@ export default function App() {
   });
 
   useEffect(() => {
+    LogBox.ignoreLogs([
+      "In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.",
+    ]);
+
     const prepare = async () => {
       if (fontsLoaded) {
         await SplashScreen.hideAsync();
       }
     };
     prepare();
+    return () => {
+      prepare();
+    };
   }, [fontsLoaded]);
 
   const isConnected = useMemo(async () => {
@@ -52,11 +60,13 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <Layout />
-        </SafeAreaProvider>
-      </AuthProvider>
+      <DBProvider>
+        <AuthProvider>
+          <SafeAreaProvider>
+            <Layout />
+          </SafeAreaProvider>
+        </AuthProvider>
+      </DBProvider>
     </NativeBaseProvider>
   );
 }
