@@ -1,4 +1,10 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ToastAndroid,
+} from "react-native";
 import { Image } from "expo-image";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,9 +21,10 @@ import {
 import TextInput from "@/app/components/text-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import api from "@/app/api";
+import { useAuth } from "@/app/context/auth";
 
 const loginSchema = z.object({
-  mobile: z.string().min(11),
   userId: z.string(),
   password: z.string().min(6),
 });
@@ -25,14 +32,30 @@ const Login = () => {
   const themes = useTheme();
   const form = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
-      mobile: "",
       userId: "",
       password: "",
     },
     resolver: zodResolver(loginSchema),
   });
+
+  const { onLogin } = useAuth()!;
   const onSubmit: SubmitHandler<z.infer<typeof loginSchema>> = (data) => {
-    console.log(data);
+    api
+      .post("/auth/user", {
+        id: data.userId,
+        password: data.password,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        onLogin(res.data);
+      })
+      .catch((err) => {
+        if (err.response.data.error.message)
+          ToastAndroid.show(
+            err.response.data.error.message,
+            ToastAndroid.SHORT
+          );
+      });
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -70,20 +93,6 @@ const Login = () => {
         </View>
         <View style={styles.form}>
           <FormProvider {...form}>
-            <TextInput
-              name="mobile"
-              rules={{ required: true }}
-              keyboardType="number-pad"
-              placeholder="মোবাইল নম্বর"
-              containerStyle={{
-                borderRadius: 14,
-                backgroundColor: themes.colors.gray[100],
-              }}
-              InputLeftElement={
-                <Ionicons name="call" size={20} color={"#1ba5b3"} />
-              }
-              placeholderTextColor={themes.colors.gray[900]}
-            />
             <TextInput
               placeholder="কর্ম ভাই আইডি"
               keyboardType="numbers-and-punctuation"
@@ -158,7 +167,7 @@ const Login = () => {
             }}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Checkbox value="checked" />
+              <Checkbox value="checked" aria-label="Checked" />
               <Text style={{ fontSize: 14, fontWeight: "bold" }}>
                 পাসওয়ার্ড মনে রাখুন
               </Text>

@@ -6,10 +6,12 @@ import { Home, Payment, Deposit } from "../screens";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { theme } from "../theme";
 import { StyleSheet, TouchableOpacity, Keyboard } from "react-native";
-import { Text } from "native-base";
+import { HStack, Heading, Text } from "native-base";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import React, { useEffect, useState } from "react";
 import { Header, TabHeader } from "@/app/components";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ImageBackground } from "expo-image";
 
 const Tabs = createBottomTabNavigator();
 
@@ -137,7 +139,41 @@ export default function TabNavigator({ ...props }: any) {
               },
               header(props) {
                 if (props.route.name === "deposit") {
-                  return <Header title="টাকা এড" {...(props as any)} />;
+                  return (
+                    <SafeAreaView>
+                      <ImageBackground
+                        source={require("@/assets/header_layer.png")}
+                        style={{
+                          flexDirection: "row",
+                          width: "100%",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: 50,
+                          paddingHorizontal: 20,
+                        }}
+                      >
+                        <TouchableOpacity
+                          style={{
+                            zIndex: 100,
+                            position: "absolute",
+                            left: 15,
+                            justifyContent: "center",
+                          }}
+                          onPress={() => props.navigation.navigate("home")}
+                        >
+                          <Ionicons
+                            name="chevron-back"
+                            size={30}
+                            color={theme.colors.white}
+                            style={{
+                              fontWeight: "bold",
+                            }}
+                          />
+                        </TouchableOpacity>
+                        <Heading color={theme.colors.white}>কর্ম ভাই</Heading>
+                      </ImageBackground>
+                    </SafeAreaView>
+                  );
                 }
                 return <TabHeader {...tabProps} />;
               },

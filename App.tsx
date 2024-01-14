@@ -8,7 +8,6 @@ import * as Font from "expo-font";
 import * as Network from "expo-network";
 import { LogBox, Text, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import DBProvider from "./app/context/db";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,10 +26,6 @@ export default function App() {
   });
 
   useEffect(() => {
-    LogBox.ignoreLogs([
-      "In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.",
-    ]);
-
     const prepare = async () => {
       if (fontsLoaded) {
         await SplashScreen.hideAsync();
@@ -40,7 +35,7 @@ export default function App() {
     return () => {
       prepare();
     };
-  }, [fontsLoaded]);
+  }, [fontsLoaded, LogBox]);
 
   const isConnected = useMemo(async () => {
     return (await Network.getNetworkStateAsync()).isConnected;
@@ -60,13 +55,11 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <DBProvider>
-        <AuthProvider>
-          <SafeAreaProvider>
-            <Layout />
-          </SafeAreaProvider>
-        </AuthProvider>
-      </DBProvider>
+      <AuthProvider>
+        <SafeAreaProvider>
+          <Layout />
+        </SafeAreaProvider>
+      </AuthProvider>
     </NativeBaseProvider>
   );
 }

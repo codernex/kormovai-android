@@ -23,6 +23,7 @@ interface ITextInputProps extends TextInputProps, UseControllerProps {
   InputLeftElement?: ReactNode;
   InputRightElemnt?: ReactNode;
   labelStyle?: TextStyle;
+  variant?: "outline" | "default";
 }
 
 const TextInput: React.FC<ITextInputProps> = ({ ...props }) => {
@@ -47,7 +48,14 @@ const ControlledInput = ({
   containerStyle,
   ...props
 }: ITextInputProps) => {
-  const { name, label, rules, defaultValue, ...inputProps } = props;
+  const {
+    name,
+    label,
+    rules,
+    defaultValue,
+    variant = "default",
+    ...inputProps
+  } = props;
 
   const { field, fieldState } = useController({ name, rules, defaultValue });
 
@@ -64,6 +72,17 @@ const ControlledInput = ({
               marginVertical: 8,
             },
             props.labelStyle,
+            variant === "outline"
+              ? {
+                  position: "absolute",
+                  top: -22,
+                  left: 20,
+                  backgroundColor: "#f0f0f0",
+                  zIndex: 10,
+                  paddingHorizontal: 5,
+                  fontSize: 16,
+                }
+              : {},
           ]}
         >
           {label}

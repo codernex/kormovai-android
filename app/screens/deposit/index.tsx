@@ -74,7 +74,7 @@ export default function Deposit({ navigation }: any) {
               borderRadius={15}
             >
               <Image
-                source={require("@/assets/bkash.png")}
+                source={require("@/assets/brand/nagad.png")}
                 style={{
                   width: 40,
                   height: 40,
@@ -94,7 +94,7 @@ export default function Deposit({ navigation }: any) {
               borderRadius={15}
             >
               <Image
-                source={require("@/assets/bkash.png")}
+                source={require("@/assets/brand/bank.png")}
                 style={{
                   width: 40,
                   height: 40,

@@ -32,7 +32,6 @@ import {
 } from "../screens";
 import { HStack, Text } from "native-base";
 import { Image } from "expo-image";
-import { theme } from "../theme";
 
 export default function Layout() {
   return (
@@ -252,6 +251,7 @@ const RootLayoutStack = () => {
                   <Image
                     source={require("@/assets/brand/rocket.png")}
                     style={{ width: 30, height: 30 }}
+                    contentFit="contain"
                   />
                   <Text color={"white"} fontSize={24} fontWeight={"bold"}>
                     রকেট
@@ -281,7 +281,7 @@ const LeftDrawerScreen = () => {
 };
 
 const RightDrawerScreen = () => {
-  const { authState } = useAuth();
+  const { authState } = useAuth()!;
   return (
     <RightDrawer.Navigator
       id="RightDrawer"

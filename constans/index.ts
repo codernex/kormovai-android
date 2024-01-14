@@ -1,6 +1,5 @@
-export const TOKEN_KEY = "TOKEN_KEY";
-export const USER_KEY = "USER_KEY";
-
+export const USERS = "USERS";
+export const CURRENT_USER = "CURRENT_USER";
 export const Colors = {
   secondary: "#13a488",
   primary: "#22a4dd",

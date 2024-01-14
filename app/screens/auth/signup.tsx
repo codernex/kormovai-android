@@ -28,6 +28,8 @@ import { useSignUpFlow } from "@/app/store/useSignUpFlow";
 import DividerText from "@/app/components/DividerText";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import api from "@/app/api";
+import { useAuth } from "@/app/context/auth";
 
 const signUpSchema = z.object({
   name: z.string().min(5, { message: "অনুগ্রহ করে নাম লিখো" }),
@@ -46,7 +48,7 @@ const signUpSchema = z.object({
   }),
   occuption: z.string().min(2, { message: "অনুগ্রহ করে আপনার পেশা দিন" }),
   email: z.string().email().optional(),
-  referCode: z.string().min(6, { message: "অনুগ্রহ করে রেফার কোড দিন " }),
+  referCode: z.string().optional(),
   password: z.string().min(6, { message: "অনুগ্রহ করে পাসওয়ার্ড দিন " }),
   confirmPassword: z
     .string()
@@ -327,9 +329,25 @@ interface IStep extends UseFormReturn<any, any, undefined> {}
 const StepTwo: React.FC<IStep> = ({ ...props }) => {
   const navigation = useNavigation();
 
+  const { onRegister } = useAuth()!;
+  const { setStep } = useSignUpFlow();
+
   const onSubmit: SubmitHandler<z.infer<typeof signUpSchema>> = (data: any) => {
-    console.log(data);
-    console.log(props.formState.errors);
+    api
+      .post("/users", data)
+      .then(async (res) => {
+        await onRegister(res.data?.user, res.data.accessToken);
+      })
+      .catch((err) => {
+        if (err.response.data.error.message)
+          ToastAndroid.show(
+            err.response.data.error.message,
+            ToastAndroid.SHORT
+          );
+      })
+      .finally(() => {
+        setStep("step-one");
+      });
   };
 
   return (

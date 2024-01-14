@@ -1,7 +1,7 @@
 export { default as Header } from "./header";
 export { default as TabHeader } from "./TabHeader";
-export { default as RightDrawerContent } from "../components/RightDrawerContent";
-export { default as LeftDrawerContent } from "../components/LeftDrawerContent";
+export { default as RightDrawerContent } from "./RightDrawerContent";
+export { default as LeftDrawerContent } from "./LeftDrawerContent";
 export { default as Spacer } from "./spacer";
 export { default as Button } from "./button";
 export { default as GradientIcon } from "./gradien-icon";
